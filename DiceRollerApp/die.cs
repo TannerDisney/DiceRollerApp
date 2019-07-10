@@ -12,8 +12,7 @@ namespace DiceRollerApp
     class Die
     {
         private byte faceValue;
-        private bool isHeld;
-        private byte numberOfSides;
+        private readonly byte numberOfSides;
         private static Random rand;
 
         static Die()
@@ -51,12 +50,19 @@ namespace DiceRollerApp
             }
         }
 
+        public bool IsHeld { get; set; }
+
         /// <summary>
         /// Rolls the die, sets face value to generated number
         /// and returns generated number.
         /// </summary>
         public byte Roll()
         {
+
+            if (IsHeld)
+            {
+                return FaceValue;
+            }
             const byte MinValue = 1;
             // Offset because of exclusive upper bound for random.
             byte MaxValue = (byte)(numberOfSides + 1);
